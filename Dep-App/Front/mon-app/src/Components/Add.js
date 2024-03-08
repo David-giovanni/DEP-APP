@@ -54,16 +54,14 @@ const Add = () => {
               <span>{ad.location}</span>
             </div>
             <div className="mt-2 flex items-center">
+              <span className="text-blue-500 font-bold mr-2">
+                Lieu d'arrivée :
+              </span>
+              <span>{ad.location2}</span>
+            </div>
+            <div className="mt-2 flex items-center">
               <span className="text-blue-500 font-bold mr-2">Telephone :</span>
               <span>{ad.phone}</span>
-            </div>
-            <div className="">
-              <span className="text-blue-500 font-bold mr-2"></span>
-              <img
-                src={`http://localhost:4000/${ad.image}`}
-                alt={ad.title}
-                className="rounded w-full h-full max-w-96 max-h-60 min-h-60  / xl:max-w-full xl:max-h-80 xl:min-h-80"
-              />
             </div>
             <span className="text-gray-500">
               Annonce posté par : {ad.username}

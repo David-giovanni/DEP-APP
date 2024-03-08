@@ -43,11 +43,6 @@ const MyAds = () => {
             </h2>
             <p className="text-gray-700">Descriptions : {ad.description}</p>
             <p className="text-gray-700">Lieu : {ad.location}</p>
-            <img
-              src={`http://localhost:4000/${ad.image}`}
-              alt={ad.title}
-              className="w-60 h-40 rounded"
-            />
           </div>
         ))}
       </div>

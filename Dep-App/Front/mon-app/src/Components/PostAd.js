@@ -1,5 +1,4 @@
-// PostAd.js
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 
 const PostAd = ({ onPost }) => {
@@ -7,23 +6,17 @@ const PostAd = ({ onPost }) => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [location2, setLocation2] = useState("");
   const [, setAds] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
-  const [image, setImage] = useState(null);
-  const inputFileRef = useRef(null);
   const [phone, setPhone] = useState("");
   const [isPhoneValid, setIsPhoneValid] = useState(true);
 
   const isPhoneNumberValid = (phoneNumber) => {
-    // Utilisez une expression régulière pour valider le format du numéro (10 chiffres)
+    // Use a regular expression to validate the phone number format (10 digits)
     const phoneNumberRegex = /^\d{10}$/;
     return phoneNumberRegex.test(phoneNumber);
-  };
-
-  const handleImageChange = (e) => {
-    const selectedImage = e.target.files[0];
-    setImage(selectedImage);
   };
 
   const handlePostAd = async () => {
@@ -33,17 +26,9 @@ const PostAd = ({ onPost }) => {
         price &&
         description &&
         location &&
-        image &&
+        location2 &&
         isPhoneNumberValid(phone)
       ) {
-        const newAd = new FormData();
-        newAd.append("title", title);
-        newAd.append("price", price);
-        newAd.append("description", description);
-        newAd.append("location", location);
-        newAd.append("image", image);
-        newAd.append("phone", phone);
-
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -55,8 +40,16 @@ const PostAd = ({ onPost }) => {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // Set content type to JSON
           },
-          body: newAd,
+          body: JSON.stringify({
+            title,
+            price,
+            description,
+            location,
+            location2,
+            phone,
+          }),
         });
 
         if (!response.ok) {
@@ -75,7 +68,7 @@ const PostAd = ({ onPost }) => {
         setPrice("");
         setDescription("");
         setLocation("");
-        setImage(null);
+        setLocation2("");
         setMessage("Annonce publiée avec succès !");
       } else {
         console.log("Veuillez remplir toutes les informations de l'annonce.");
@@ -164,6 +157,17 @@ const PostAd = ({ onPost }) => {
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-semibold mb-2">
+              Lieu d'arrivée :
+            </label>
+            <input
+              type="text"
+              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              value={location2}
+              onChange={(e) => setLocation2(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-white text-sm font-semibold mb-2">
               Téléphone :
             </label>
             <input
@@ -174,7 +178,7 @@ const PostAd = ({ onPost }) => {
               value={phone}
               onChange={(e) => {
                 setPhone(e.target.value);
-                // Vérifiez la validité du numéro de téléphone à chaque changement
+                // Check phone number validity on each change
                 setIsPhoneValid(isPhoneNumberValid(e.target.value));
               }}
             />
@@ -184,34 +188,6 @@ const PostAd = ({ onPost }) => {
               </p>
             )}
           </div>
-
-          <div className="mb-4">
-            <label className="block text-white text-sm font-semibold mb-2">
-              Photo :
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              ref={inputFileRef}
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <button
-              onClick={() => inputFileRef.current.click()}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-            >
-              Choisir une photo
-            </button>
-            {image && <p className="text-green-500">Photo sélectionnée</p>}
-            {image && (
-              <img
-                src={URL.createObjectURL(image)} // Utilisez URL.createObjectURL pour afficher l'image depuis le navigateur
-                alt="Selected Ad"
-                className="mt-2"
-              />
-            )}
-          </div>
-
           <button
             onClick={handlePostAd}
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"

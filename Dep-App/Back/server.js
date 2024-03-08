@@ -2,7 +2,6 @@ const express = require("express");
 const { MongoClient } = require("mongodb");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 
 const app = express();
 const port = 4000;
@@ -23,17 +22,6 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     const db = client.db("DEP-APP");
     const usersCollection = db.collection("users");
     const adsCollection = db.collection("ads");
-
-    const storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, "uploads/"); // Dossier où les images seront stockées
-      },
-      filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname); // Nom du fichier avec timestamp pour éviter les doublons
-      },
-    });
-    const upload = multer({ storage: storage });
-    app.use("/uploads", express.static("uploads"));
 
     app.post("/register", async (req, res) => {
       const { username, email, password } = req.body;
@@ -132,48 +120,50 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       }
     });
 
-    app.post("/postAd", upload.single("image"), async (req, res) => {
+    app.post("/postAd", async (req, res) => {
       try {
-        const { title, price, description, location, phone } = req.body; // Include phone in the request body
+        const { title, price, description, location, location2, phone } =
+          req.body;
 
         const token =
           req.headers.authorization && req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, "your-secret-key");
 
         // Validate that all necessary information is present
-        if (!title || !price || !description || !location || !phone) {
+        if (
+          !title ||
+          !price ||
+          !description ||
+          !location ||
+          !location2 ||
+          !phone
+        ) {
           // Check for phone
           return res.status(400).json({
             message: "Veuillez fournir toutes les informations nécessaires.",
           });
         }
 
-        // Get the path of the uploaded image
-        const imagePath = req.file ? req.file.path : null;
-
-        // Save the ad in the database, associating the user ID and the image path
+        // Save the ad in the database, associating the user ID
         const result = await adsCollection.insertOne({
           title,
           price,
           description,
           location,
-          phone, // Add phone to the ad
+          location2,
+          phone,
           userId: decodedToken.userId,
           email: decodedToken.email,
           username: decodedToken.username,
-          image: imagePath,
         });
 
-        // Get the complete ad, including the image path
+        // Get the complete ad without the image path
         const newAd = await adsCollection.findOne({ _id: result.insertedId });
 
         // Respond with a success message and the details of the created ad
         res.status(201).json({
           message: "Annonce postée avec succès",
-          ad: {
-            ...newAd,
-            image: `http://localhost:4000/${newAd.image}`,
-          },
+          ad: { ...newAd },
         });
       } catch (error) {
         console.error("Erreur lors de la création de l'annonce :", error);
