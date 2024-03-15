@@ -86,7 +86,9 @@ const Register = () => {
       <Navbar />
       <div className="bg-[#242424] flex items-center justify-center min-h-screen">
         <div className="bg-white p-8 shadow-md w-96 rounded-xl">
-          <h2 className="text-2xl font-bold mb-4 text-center">Inscription</h2>
+          <h2 className="text-2xl text-purple-500 font-bold mb-4 text-center">
+            Inscription
+          </h2>
           <form>
             <div className="mb-4">
               <label className="block text-gray-600 text-sm font-semibold mb-2">
@@ -94,7 +96,7 @@ const Register = () => {
               </label>
               <input
                 type="text"
-                className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -106,7 +108,7 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -118,7 +120,7 @@ const Register = () => {
               </label>
               <input
                 type="password"
-                className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -127,7 +129,7 @@ const Register = () => {
             <button
               type="button"
               onClick={handleRegister}
-              className="bg-blue-500 text-white flex mx-auto py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+              className="bg-purple-500 text-white flex mx-auto py-2 px-4 rounded hover:bg-purple-600 duration-500 focus:outline-none focus:shadow-outline-blue active:bg-purple-800"
             >
               S'inscrire
             </button>

@@ -173,6 +173,39 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       }
     });
 
+    app.delete("/deleteAd/:adId", async (req, res) => {
+      try {
+        const token =
+          req.headers.authorization && req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, "your-secret-key");
+
+        // Récupérez l'identifiant de l'annonce à supprimer depuis les paramètres de la requête
+        const adId = req.params.adId;
+
+        // Vérifiez si l'annonce appartient à l'utilisateur actuel
+        const ad = await adsCollection.findOne({ _id: adId });
+        if (!ad) {
+          return res.status(404).json({ message: "Annonce non trouvée" });
+        }
+        if (ad.userId !== decodedToken.userId) {
+          return res.status(403).json({
+            message: "Vous n'êtes pas autorisé à supprimer cette annonce",
+          });
+        }
+
+        // Supprimez l'annonce de la base de données
+        await adsCollection.deleteOne({ _id: adId });
+
+        res.status(200).json({ message: "Annonce supprimée avec succès" });
+      } catch (error) {
+        console.error("Erreur lors de la suppression de l'annonce :", error);
+        res.status(500).json({
+          message:
+            "Une erreur est survenue lors de la suppression de l'annonce.",
+        });
+      }
+    });
+
     app.get("/getUserInfo", async (req, res) => {
       try {
         const token =

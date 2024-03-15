@@ -121,7 +121,7 @@ const Login = () => {
       <div className="flex items-center justify-center min-h-screen bg-[#242424]">
         <div className="bg-white p-8 shadow-md w-96 rounded-xl">
           {user ? (
-            <div className="text-center">
+            <div className="text-center ">
               <h2 className="text-2xl font-bold mb-4">
                 Bienvenue, {user.username}
               </h2>
@@ -143,7 +143,9 @@ const Login = () => {
             </div>
           ) : (
             <div className="rounded-none">
-              <h2 className="text-2xl font-bold mb-4 text-center">Connexion</h2>
+              <h2 className="text-2xl text-purple-500 font-bold mb-4 text-center">
+                Connexion
+              </h2>
               <form>
                 <div className="mb-4">
                   <label className="block text-gray-600 text-sm font-semibold mb-2">
@@ -151,7 +153,7 @@ const Login = () => {
                   </label>
                   <input
                     type="email"
-                    className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+                    className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -162,7 +164,7 @@ const Login = () => {
                   </label>
                   <input
                     type="password"
-                    className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+                    className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -170,7 +172,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={handleLogin}
-                  className="bg-blue-500 text-white flex mx-auto py-2 px-[77px] rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                  className="bg-purple-500 text-white flex mx-auto py-2 px-[77px] rounded hover:bg-purple-600 duration-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
                 >
                   Se connecter
                 </button>

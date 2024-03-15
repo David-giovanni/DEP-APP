@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#161616] xl:h-14 flex justify-between items-center text-white relative">
+    <div className="bg-[#242424] xl:h-14 flex justify-between items-center text-white relative">
       <div className="md:flex md:justify-center md:items-center"></div>
       <div
         onClick={handleNav}
@@ -60,7 +60,7 @@ const Navbar = () => {
         <div className="text-white hidden xl:block">
           <a
             href="/"
-            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-blue-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
+            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-purple-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
             style={{ transition: "border 0.5s" }}
           >
             <FaHome className="" size={25} />
@@ -70,7 +70,7 @@ const Navbar = () => {
         <div className="text-white hidden xl:block">
           <a
             href="login"
-            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-blue-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
+            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-purple-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
             style={{ transition: "border 1s" }}
           >
             <FaLockOpen className="" size={25} />
@@ -80,7 +80,7 @@ const Navbar = () => {
         <div className="text-white hidden xl:block">
           <a
             href="register"
-            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-blue-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
+            className="xl:text-gray-300 xl:hover:border-b xl:border-transparent xl:hover:border-purple-500 xl:hover:text-white xl:px-4 xl:py-3 xl:rounded-xl xl:flex xl:gap-2"
             style={{ transition: "border 1s" }}
           >
             <CgProfile className="" size={25} />

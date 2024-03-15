@@ -108,8 +108,8 @@ const PostAd = ({ onPost }) => {
     <div className="bg-[#242424] min-h-screen">
       <Navbar />
       {isLoggedIn ? (
-        <div className="bg-gray-900 text-black rounded-xl mt-10 p-8 xl:w-96 xl:justify-center xl:mx-auto shadow-md">
-          <h3 className="text-2xl font-bold mb-4 text-white">
+        <div className="bg-[#161616] text-black rounded-xl mt-10 p-8 xl:w-96 xl:justify-center xl:mx-auto shadow-md">
+          <h3 className="text-2xl font-bold mb-4 text-purple-500 text-center">
             Poster une annonce
           </h3>
           <div className="mb-4">
@@ -118,7 +118,7 @@ const PostAd = ({ onPost }) => {
             </label>
             <input
               type="text"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -128,8 +128,8 @@ const PostAd = ({ onPost }) => {
               Prix :
             </label>
             <input
-              type="text"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              type="number"
+              className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -139,7 +139,7 @@ const PostAd = ({ onPost }) => {
               Description :
             </label>
             <textarea
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -150,7 +150,7 @@ const PostAd = ({ onPost }) => {
             </label>
             <input
               type="text"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             />
@@ -161,7 +161,7 @@ const PostAd = ({ onPost }) => {
             </label>
             <input
               type="text"
-              className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+              className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
               value={location2}
               onChange={(e) => setLocation2(e.target.value)}
             />
@@ -172,7 +172,7 @@ const PostAd = ({ onPost }) => {
             </label>
             <input
               type="tel"
-              className={`w-full border p-2 rounded focus:outline-none focus:border-blue-500 ${
+              className={`w-full border p-2 rounded focus:outline-none focus:border-purple-500 ${
                 isPhoneValid ? "" : "border-red-500"
               }`}
               value={phone}
@@ -190,7 +190,7 @@ const PostAd = ({ onPost }) => {
           </div>
           <button
             onClick={handlePostAd}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+            className="bg-purple-500 text-white py-2 px-4 rounded-xl mx-auto flex hover:bg-purple-600 hover:duration-500 focus:outline-none focus:shadow-outline-blue active:bg-purple-800"
           >
             Poster l'annonce
           </button>
@@ -202,10 +202,10 @@ const PostAd = ({ onPost }) => {
             Bonjour ! Connectez-vous ou créez un compte pour déposer votre
             annonce.
           </p>
-          <button className="bg-blue-500 mt-10 rounded-xl py-2 px-10 w-60 font-bold">
+          <button className="bg-purple-500 hover:bg-purple-600 hover:duration-500 mt-10 rounded-xl py-2 px-10 w-60 font-bold">
             <a href="/login">Me connecter</a>
           </button>
-          <button className="border border-x-1 mt-1 rounded-xl py-2 px-10 w-60 font-bold">
+          <button className="border border-x-1 hover:border-purple-500 hover:duration-500 mt-1 rounded-xl py-2 px-10 w-60 font-bold">
             <a href="/register">Créer un compte</a>
           </button>
         </div>
