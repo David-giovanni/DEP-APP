@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import PostAd from "./Components/PostAd";
 import Add from "./Components/Add";
 import MyAds from "./Components/MyAds";
+import Test from "./Components/Test";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/PostAd" element={<PostAd />} />
           <Route path="/Add" element={<Add />} />
           <Route path="/MyAds" element={<MyAds />} />
+          <Route path="/Test" element={<Test />} />
         </Routes>
       </div>
     </Router>

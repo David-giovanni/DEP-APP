@@ -39,16 +39,6 @@ const Add = () => {
             </div>
             <div className="mt-2 flex items-center">
               <span className="text-purple-500 font-bold mr-2">
-                Description :
-              </span>
-              <span>{ad.description}</span>
-            </div>
-            <div className="mt-2 flex items-center">
-              <span className="text-purple-500 font-bold mr-2">Prix :</span>
-              <span>{ad.price} €</span>
-            </div>
-            <div className="mt-2 flex items-center">
-              <span className="text-purple-500 font-bold mr-2">
                 Lieu de départ :
               </span>
               <span>{ad.location}</span>
@@ -58,6 +48,16 @@ const Add = () => {
                 Lieu d'arrivée :
               </span>
               <span>{ad.location2}</span>
+            </div>
+            <div className="mt-2 flex items-center">
+              <span className="text-purple-500 font-bold mr-2">
+                Description :
+              </span>
+              <span>{ad.description}</span>
+            </div>
+            <div className="mt-2 flex items-center">
+              <span className="text-purple-500 font-bold mr-2">Prix :</span>
+              <span>{ad.price} €</span>
             </div>
             <div className="mt-2 flex items-center">
               <span className="text-purple-500 font-bold mr-2">

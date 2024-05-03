@@ -60,11 +60,16 @@ const MyAds = () => {
         </button>
         {userAds.map((ad) => (
           <div key={ad._id} className="bg-white rounded-xl p-4 mb-4">
-            <h2 className="text-2xl font-bold text-blue-500 mb-2">
+            <h2 className="text-2xl font-bold text-purple-500 mb-2">
               Titre : {ad.title}
             </h2>
+            <p className="text-gray-700">Titre : {ad.title}</p>
+            <p className="text-gray-700">Lieu de départ : {ad.location}</p>
+            <p className="text-gray-700">Lieu d'arrivée : {ad.location2}</p>
             <p className="text-gray-700">Descriptions : {ad.description}</p>
-            <p className="text-gray-700">Lieu : {ad.location}</p>
+            <p className="text-gray-700">Prix : {ad.price} €</p>
+            <p className="text-gray-700">Téléphone : {ad.phone}</p>
+
             <button
               onClick={() => handleDeleteAd(ad._id)} // Supprimer l'annonce en cliquant sur le bouton
               className="bg-red-500 text-white py-2 px-4 rounded mt-2"

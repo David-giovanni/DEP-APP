@@ -75,6 +75,7 @@ const Login = () => {
     localStorage.removeItem("token");
     setUser(null);
     setMessage("Vous avez été déconnecté.");
+    navigate("/login");
   };
 
   const handleGoogleLogin = (credentialResponse) => {
@@ -136,7 +137,7 @@ const Login = () => {
               <button
                 onClick={() => navigate("/MyAds")}
                 type="button"
-                className="mt-1 bg-blue-500 text-white py-2 px-4 mx-auto flex rounded focus:outline-none focus:shadow-outline-red active:bg-blue-800"
+                className="mt-1 bg-purple-500 text-white py-2 px-4 mx-auto flex rounded focus:outline-none focus:shadow-outline-red active:bg-purple-800"
               >
                 Mes annonces
               </button>

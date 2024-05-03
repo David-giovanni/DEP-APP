@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { GoogleLogin } from "@react-oauth/google";
@@ -10,6 +10,31 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur est déjà connecté
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Récupérer les informations de l'utilisateur en utilisant le jeton
+      fetch("http://localhost:4000/getUserInfo", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUser(data);
+        })
+        .catch((error) => {
+          console.error(
+            "Erreur lors de la récupération des informations de l'utilisateur :",
+            error
+          );
+        });
+    }
+  }, []);
 
   const handleRegister = () => {
     const formData = { username, email, password };
@@ -85,65 +110,76 @@ const Register = () => {
     <div>
       <Navbar />
       <div className="bg-[#242424] flex items-center justify-center min-h-screen">
-        <div className="bg-white p-8 shadow-md w-96 rounded-xl">
-          <h2 className="text-2xl text-purple-500 font-bold mb-4 text-center">
-            Inscription
-          </h2>
-          <form>
-            <div className="mb-4">
-              <label className="block text-gray-600 text-sm font-semibold mb-2">
-                Nom d'utilisateur:
-              </label>
-              <input
-                type="text"
-                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-600 text-sm font-semibold mb-2">
-                E-mail:
-              </label>
-              <input
-                type="email"
-                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-600 text-sm font-semibold mb-2">
-                Mot de passe:
-              </label>
-              <input
-                type="password"
-                className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={handleRegister}
-              className="bg-purple-500 text-white flex mx-auto py-2 px-4 rounded hover:bg-purple-600 duration-500 focus:outline-none focus:shadow-outline-blue active:bg-purple-800"
-            >
-              S'inscrire
+        {user ? (
+          <div>
+            <h2 className="text-2xl text-purple-500 font-bold mb-4 text-center">
+              Vous êtes déjà connecté
+            </h2>
+            <button className="bg-purple-500 text-white flex mx-auto py-2 px-4 rounded hover:bg-purple-600 duration-500 focus:outline-none focus:shadow-outline-blue active:bg-purple-800">
+              Se déconnecter
             </button>
-            <div className="mt-1 flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleLogin}
-                onError={() => {
-                  console.log("Échec de la connexion Google");
-                }}
-              />
-            </div>
-            {message && <p className="text-red-500 mt-4">{message}</p>}
-          </form>
-        </div>
+          </div>
+        ) : (
+          <div className="bg-white p-8 shadow-md w-96 rounded-xl">
+            <h2 className="text-2xl text-purple-500 font-bold mb-4 text-center">
+              Inscription
+            </h2>
+            <form>
+              <div className="mb-4">
+                <label className="block text-gray-600 text-sm font-semibold mb-2">
+                  Nom d'utilisateur:
+                </label>
+                <input
+                  type="text"
+                  className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-600 text-sm font-semibold mb-2">
+                  E-mail:
+                </label>
+                <input
+                  type="email"
+                  className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-600 text-sm font-semibold mb-2">
+                  Mot de passe:
+                </label>
+                <input
+                  type="password"
+                  className="w-full border p-2 rounded focus:outline-none focus:border-purple-500"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleRegister}
+                className="bg-purple-500 text-white flex mx-auto py-2 px-4 rounded hover:bg-purple-600 duration-500 focus:outline-none focus:shadow-outline-blue active:bg-purple-800"
+              >
+                S'inscrire
+              </button>
+              <div className="mt-1 flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={() => {
+                    console.log("Échec de la connexion Google");
+                  }}
+                />
+              </div>
+              {message && <p className="text-red-500 mt-4">{message}</p>}
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
