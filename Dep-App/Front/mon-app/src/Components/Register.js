@@ -37,6 +37,10 @@ const Register = () => {
   }, []);
 
   const handleRegister = () => {
+    if (!username || !email || !password) {
+      setMessage("Veuillez remplir tous les champs.");
+      return;
+    }
     const formData = { username, email, password };
 
     fetch("http://localhost:4000/register", {
