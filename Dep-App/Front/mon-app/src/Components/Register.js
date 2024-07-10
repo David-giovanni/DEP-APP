@@ -85,7 +85,7 @@ const Register = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("La réponse du réseau n'était pas correcte");
+          throw new Error("La réponse du reseau n'était pas correcte");
         }
         return response.json();
       })
