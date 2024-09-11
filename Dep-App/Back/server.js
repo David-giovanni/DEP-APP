@@ -17,7 +17,7 @@ app.use(
 
 app.use(express.json());
 
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+MongoClient.connect(url)
   .then((client) => {
     const db = client.db("DEP-APP");
     const usersCollection = db.collection("users");
@@ -173,14 +173,16 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       }
     });
 
+    const { ObjectId } = require("mongodb");
+
     app.delete("/deleteAd/:adId", async (req, res) => {
       try {
         const token =
           req.headers.authorization && req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, "your-secret-key");
 
-        // Récupérez l'identifiant de l'annonce à supprimer depuis les paramètres de la requête
-        const adId = req.params.adId;
+        // Récupérez l'identifiant de l'annonce et convertissez-le en ObjectId
+        const adId = new ObjectId(req.params.adId);
 
         // Vérifiez si l'annonce appartient à l'utilisateur actuel
         const ad = await adsCollection.findOne({ _id: adId });
